@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		232F25AC115419389B82C588 /* Pods_goldenrich.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CF372AC1EA4AF876CBE2CE /* Pods_goldenrich.framework */; };
 		3322BAA11E83B858003F190E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAA01E83B858003F190E /* AppDelegate.swift */; };
 		3322BAA31E83B859003F190E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAA21E83B859003F190E /* ViewController.swift */; };
 		3322BAA61E83B859003F190E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3322BAA41E83B859003F190E /* Main.storyboard */; };
@@ -16,6 +17,12 @@
 		3322BAB61E83E963003F190E /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAB51E83E963003F190E /* Register.swift */; };
 		3322BAB81E83FC11003F190E /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAB71E83FC11003F190E /* Login.swift */; };
 		3322BABA1E840359003F190E /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAB91E840359003F190E /* Home.swift */; };
+		332804D11E8961C400517C86 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332804D01E8961C400517C86 /* Products.swift */; };
+		332804D41E8963D900517C86 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332804D31E8963D900517C86 /* ProductTableViewCell.swift */; };
+		332804D61E89841600517C86 /* ProductItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332804D51E89841600517C86 /* ProductItem.swift */; };
+		332804D81E89AE3A00517C86 /* ContactUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332804D71E89AE3A00517C86 /* ContactUs.swift */; };
+		332804DC1E89CB8800517C86 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 332804DB1E89CB8800517C86 /* SWRevealViewController.m */; };
+		332804E01E89F60200517C86 /* AboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332804DF1E89F60200517C86 /* AboutUs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +37,17 @@
 		3322BAB51E83E963003F190E /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		3322BAB71E83FC11003F190E /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		3322BAB91E840359003F190E /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		332804D01E8961C400517C86 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		332804D31E8963D900517C86 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		332804D51E89841600517C86 /* ProductItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductItem.swift; sourceTree = "<group>"; };
+		332804D71E89AE3A00517C86 /* ContactUs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUs.swift; sourceTree = "<group>"; };
+		332804D91E89CB8600517C86 /* goldenrich-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "goldenrich-Bridging-Header.h"; sourceTree = "<group>"; };
+		332804DA1E89CB8800517C86 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		332804DB1E89CB8800517C86 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		332804DF1E89F60200517C86 /* AboutUs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUs.swift; sourceTree = "<group>"; };
+		43C0FA0EC583AA17751DC6B0 /* Pods-goldenrich.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goldenrich.release.xcconfig"; path = "Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich.release.xcconfig"; sourceTree = "<group>"; };
+		72CF372AC1EA4AF876CBE2CE /* Pods_goldenrich.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_goldenrich.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADBBC087DE17A64D72A95E1D /* Pods-goldenrich.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goldenrich.debug.xcconfig"; path = "Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +55,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				232F25AC115419389B82C588 /* Pods_goldenrich.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04F01BF48A5F60E6EC398946 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADBBC087DE17A64D72A95E1D /* Pods-goldenrich.debug.xcconfig */,
+				43C0FA0EC583AA17751DC6B0 /* Pods-goldenrich.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3322BA941E83B858003F190E = {
 			isa = PBXGroup;
 			children = (
 				3322BA9F1E83B858003F190E /* goldenrich */,
 				3322BA9E1E83B858003F190E /* Products */,
+				04F01BF48A5F60E6EC398946 /* Pods */,
+				B9300E8C274E200009E50E48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,11 +92,13 @@
 		3322BA9F1E83B858003F190E /* goldenrich */ = {
 			isa = PBXGroup;
 			children = (
+				332804D21E8963A100517C86 /* Object */,
 				3322BAB21E83E890003F190E /* Controller */,
 				3322BAA01E83B858003F190E /* AppDelegate.swift */,
 				3322BAA21E83B859003F190E /* ViewController.swift */,
 				3322BAA41E83B859003F190E /* Main.storyboard */,
 				3322BAA71E83B859003F190E /* Assets.xcassets */,
+				332804DD1E89CB8F00517C86 /* SideMenu */,
 				3322BAA91E83B859003F190E /* LaunchScreen.storyboard */,
 				3322BAAC1E83B859003F190E /* Info.plist */,
 			);
@@ -80,8 +112,38 @@
 				3322BAB51E83E963003F190E /* Register.swift */,
 				3322BAB71E83FC11003F190E /* Login.swift */,
 				3322BAB91E840359003F190E /* Home.swift */,
+				332804D01E8961C400517C86 /* Products.swift */,
+				332804D71E89AE3A00517C86 /* ContactUs.swift */,
+				332804DF1E89F60200517C86 /* AboutUs.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		332804D21E8963A100517C86 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				332804D31E8963D900517C86 /* ProductTableViewCell.swift */,
+				332804D51E89841600517C86 /* ProductItem.swift */,
+			);
+			name = Object;
+			sourceTree = "<group>";
+		};
+		332804DD1E89CB8F00517C86 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				332804DA1E89CB8800517C86 /* SWRevealViewController.h */,
+				332804DB1E89CB8800517C86 /* SWRevealViewController.m */,
+				332804D91E89CB8600517C86 /* goldenrich-Bridging-Header.h */,
+			);
+			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		B9300E8C274E200009E50E48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72CF372AC1EA4AF876CBE2CE /* Pods_goldenrich.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,9 +153,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3322BAAF1E83B859003F190E /* Build configuration list for PBXNativeTarget "goldenrich" */;
 			buildPhases = (
+				2927D23BCC8E53E9FF3BC330 /* [CP] Check Pods Manifest.lock */,
 				3322BA991E83B858003F190E /* Sources */,
 				3322BA9A1E83B858003F190E /* Frameworks */,
 				3322BA9B1E83B858003F190E /* Resources */,
+				22A4CEE645CEB270BCAAE617 /* [CP] Embed Pods Frameworks */,
+				142DDBB59E95E7C9DBB86B6B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -116,6 +181,8 @@
 				TargetAttributes = {
 					3322BA9C1E83B858003F190E = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = S8GM8ACE4X;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -151,15 +218,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		142DDBB59E95E7C9DBB86B6B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		22A4CEE645CEB270BCAAE617 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2927D23BCC8E53E9FF3BC330 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3322BA991E83B858003F190E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				332804D81E89AE3A00517C86 /* ContactUs.swift in Sources */,
 				3322BAB41E83E8B6003F190E /* ResetPassword.swift in Sources */,
+				332804D41E8963D900517C86 /* ProductTableViewCell.swift in Sources */,
+				332804E01E89F60200517C86 /* AboutUs.swift in Sources */,
 				3322BAB81E83FC11003F190E /* Login.swift in Sources */,
+				332804D61E89841600517C86 /* ProductItem.swift in Sources */,
 				3322BAA31E83B859003F190E /* ViewController.swift in Sources */,
+				332804D11E8961C400517C86 /* Products.swift in Sources */,
 				3322BAB61E83E963003F190E /* Register.swift in Sources */,
+				332804DC1E89CB8800517C86 /* SWRevealViewController.m in Sources */,
 				3322BABA1E840359003F190E /* Home.swift in Sources */,
 				3322BAA11E83B858003F190E /* AppDelegate.swift in Sources */,
 			);
@@ -282,24 +403,33 @@
 		};
 		3322BAB01E83B859003F190E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADBBC087DE17A64D72A95E1D /* Pods-goldenrich.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = S8GM8ACE4X;
 				INFOPLIST_FILE = goldenrich/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Be4em.goldenrich;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "goldenrich/goldenrich-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		3322BAB11E83B859003F190E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43C0FA0EC583AA17751DC6B0 /* Pods-goldenrich.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = S8GM8ACE4X;
 				INFOPLIST_FILE = goldenrich/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Be4em.goldenrich;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "goldenrich/goldenrich-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -323,6 +453,7 @@
 				3322BAB11E83B859003F190E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
