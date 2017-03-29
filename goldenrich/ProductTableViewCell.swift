@@ -26,7 +26,7 @@ class ProductTableViewCell: UITableViewCell {
         
         productAddBtn.layer.cornerRadius = 10
         productAddBtn.clipsToBounds = true
-                
+
         productQTxtField.layer.borderColor = UIColor.lightGray.cgColor
         productQTxtField.layer.borderWidth = 1.0
         productQTxtField.layer.cornerRadius = 10
@@ -39,17 +39,18 @@ class ProductTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     @IBAction func ProductAddBtnOnClick(_ sender: AnyObject) {
-        productCellDelegate?.didPressButton(sender.tag)
+        productCellDelegate?.didPressButton(tag: self.tag, count: Int(productQTxtField.text!)!)
+        print("price:" + productPriceLabel.text!)
     }
     @IBAction func productQPlusBtnOnClick(_ sender: AnyObject) {
-        productCellDelegate?.didPressButton(sender.tag)
+        //productCellDelegate?.didPressButton(sender.tag)
         
         if Int(productQTxtField.text!)! < 100{
             productQTxtField.text = "\(Int(productQTxtField.text!)! + 1)"
         }
     }
     @IBAction func productQMinusBtnOnClick(_ sender: AnyObject) {
-        productCellDelegate?.didPressButton(sender.tag)
+        //productCellDelegate?.didPressButton(sender.tag)
         if Int(productQTxtField.text!)! > 1{
             productQTxtField.text = "\(Int(productQTxtField.text!)! - 1)"
         }
@@ -58,5 +59,5 @@ class ProductTableViewCell: UITableViewCell {
 }
 
 protocol ProductCellDelegate : class {
-    func didPressButton(_ tag: Int)
+    func didPressButton(tag: Int, count: Int)
 }

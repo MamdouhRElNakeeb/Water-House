@@ -9,14 +9,19 @@
 import Alamofire
 import UIKit
 
-class Products: UIViewController {
+class Products: UIViewController, BasketVCDelegate {
 
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
+    @IBOutlet weak var ordersNoLabel: UILabel!
+    @IBOutlet weak var makeOrderBtn: UIButton!
     
     let animals = ["Panda", "Lion", "Elefant"]
     
     var productData:Array< ProductItem > = Array < ProductItem >()
+    
+    var basketData:Array< BasketItem > = Array < BasketItem >()
+    
     var progressBar: UIActivityIndicatorView = UIActivityIndicatorView()
     
     let productsURL =  "http://apps.be4em.net/goldenrich/API/users/reloaddata"
@@ -26,6 +31,18 @@ class Products: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        if basketData.count == 0{
+            ordersNoLabel.isHidden = true
+        }
+        else{
+            ordersNoLabel.text = "\(basketData.count)"
+            ordersNoLabel.isHidden = false
+        }
+        
+        
+        ordersNoLabel.layer.cornerRadius = 8
+        ordersNoLabel.clipsToBounds = true
+        
         if revealViewController() != nil{
             sideMenuBtn.target = revealViewController()
             sideMenuBtn.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -33,7 +50,8 @@ class Products: UIViewController {
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-
+        makeOrderBtn.addTarget(self, action: #selector(openBasket), for: .touchUpInside)
+        
         
         loadProducts()
         
@@ -73,19 +91,25 @@ class Products: UIViewController {
                     }
                     else if code == 200{
                         
+                        self.productData.removeAll()
                         //self.showProgressBar()
                         
                         let dataArray = jsonData.value(forKey: "data") as! NSDictionary
                         let productsDataArray = dataArray.value(forKey: "products") as! NSArray
                         
+                        
                         for productItem in productsDataArray{
                             
-                            print(productItem)
+                            let urlStr : String = (productItem as AnyObject).value(forKey: "photoUrl") as! String
+                            let data = urlStr.data(using: .utf8)
+                            let urlStrUTF8 = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                            
+                            
                             self.productData.append(ProductItem.init(description: (productItem as AnyObject).value(forKey: "description") as! String,
                                                                      id: (productItem as AnyObject).value(forKey: "id") as! Int,
                                                                      ordermax: (productItem as AnyObject).value(forKey: "ordermax") as! Int,
                                                                      ordermin: (productItem as AnyObject).value(forKey: "ordermin") as! Int,
-                                                                     photoUrl: (productItem as AnyObject).value(forKey: "photoUrl") as! String,
+                                                                     photoUrl: urlStrUTF8 as! String,
                                                                      price: (productItem as AnyObject).value(forKey: "price") as! Int,
                                                                      productName: (productItem as AnyObject).value(forKey: "productName") as! String,
                                                                      title: (productItem as AnyObject).value(forKey: "title") as! String,
@@ -93,8 +117,10 @@ class Products: UIViewController {
                                                                      unitsNumber: (productItem as AnyObject).value(forKey: "unitsNumber") as! Int))
                             
                             
+                            print(productItem)
+                            
                         }
-                        print(self.productData[3].price)
+                        
                         
                         self.productsTableView.reloadData()
                         
@@ -106,6 +132,10 @@ class Products: UIViewController {
         }
     }
 
+    @IBAction func reloadBtnOnClick(_ sender: AnyObject) {
+        loadProducts()
+    }
+    
     /*
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -142,6 +172,46 @@ class Products: UIViewController {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 
+    func openBasket() {
+        
+        if basketData.count == 0{
+            
+            let alert = UIAlertController(title: "Error", message: "You must add one order at least!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        else{
+            
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let basketVC = storyBoard.instantiateViewController(withIdentifier: "Basket") as! Basket
+            
+            basketVC.basketData = basketData
+            basketVC.delegate = self
+            self.navigationController?.pushViewController(basketVC, animated: true)
+        }
+        
+    }
+    
+    func didFinishSecondVC(basketVC: Basket) {
+        self.basketData = basketVC.basketData
+        refreshTable()
+        //_ = basketVC.navigationController?.popViewController(animated: true)
+    }
+    
+    func refreshTable() {
+        productsTableView.reloadData()
+        
+        if basketData.count == 0{
+            ordersNoLabel.isHidden = true
+        }
+        else{
+            ordersNoLabel.text = "\(basketData.count)"
+            ordersNoLabel.isHidden = false
+        }
+
+    }
+    
     
 }
 
@@ -161,9 +231,19 @@ extension Products : UITableViewDataSource, ProductCellDelegate
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell") as! ProductTableViewCell
         
-        cell.productImage.sd_setImage(with: URL(string: productData[indexPath.row].photoUrl))
         
-        //cell.productImage.image = UIImage(named: (animals[indexPath.row] + ".jpg"))
+        //let photoUrl = URL(string: productData[indexPath.row].photoUrl)
+        let urlStr : String = productData[indexPath.row].photoUrl
+        let data = urlStr.data(using: .utf8)
+        let urlStrUTF8 = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        
+        let photoUrl = urlStrUTF8?.replacingOccurrences(of: " ", with: "%20")
+    
+        print(photoUrl)
+ 
+        cell.productImage.sd_setImage(with: URL(string: photoUrl!))
+        
+        
         cell.productNameLabel.text = productData[indexPath.row].productName
         cell.productPriceLabel.text = "\(productData[indexPath.row].price)"
         cell.productCellDelegate = self
@@ -172,8 +252,13 @@ extension Products : UITableViewDataSource, ProductCellDelegate
         return cell
     }
     
-    func didPressButton(_ tag: Int) {
+    func didPressButton(tag: Int, count: Int) {
         print("I have pressed a button with a tag: \(tag)")
+        
+        basketData.append(BasketItem.init(productId: productData[tag].id, basketItemId: 0, productName: productData[tag].productName, quantity: count, price: count * productData[tag].price))
+        
+        ordersNoLabel.isHidden = false
+        ordersNoLabel.text = "\(Int(ordersNoLabel.text!)! + 1)"
         
     }
 }

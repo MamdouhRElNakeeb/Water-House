@@ -115,6 +115,8 @@ class Login: UIViewController, UITextFieldDelegate {
                         print(dataArray.value(forKey: "userData"))
                         
                         let userDefaults = UserDefaults.standard
+                        userDefaults.set(true, forKey: "Login")
+                        
                         userDefaults.set(userDataArray.value(forKey: "userId"), forKey: "userId")
                         userDefaults.set(userDataArray.value(forKey: "username"), forKey: "username")
                         userDefaults.set(userDataArray.value(forKey: "email"), forKey: "email")
@@ -122,6 +124,10 @@ class Login: UIViewController, UITextFieldDelegate {
                         userDefaults.set(userDataArray.value(forKey: "address"), forKey: "address")
                         userDefaults.set(userDataArray.value(forKey: "api_token"), forKey: "api_token")
                         userDefaults.synchronize()
+                        
+                        
+                        let mainVC =  self.storyboard?.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+                        self.present(mainVC, animated: true, completion: nil)
                         
                     }
                     

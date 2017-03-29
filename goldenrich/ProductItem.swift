@@ -14,8 +14,8 @@ class ProductItem {
     var id = 1
     var ordermax = 100
     var ordermin = 1
-    var photoUrl: String = ""
-    var price = 30
+    var photoUrl = ""
+    var price = 1
     var productName = ""
     var title = ""
     var unitWeight = 1000
