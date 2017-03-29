@@ -28,12 +28,12 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        /*
+        
         roundViewCorners(view: productsView)
         roundViewCorners(view: lastOrdersView)
         roundViewCorners(view: aboutUsView)
         roundViewCorners(view: contactUsView)
- */
+ 
         let productsBtnTap = UITapGestureRecognizer(target: self, action: #selector(openProducts))
         productsBtnTap.delegate = self
         productsView.addGestureRecognizer(productsBtnTap)
@@ -78,25 +78,61 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func roundViewCorners(view: UIView){
-        
-        let maskPath = UIBezierPath(rect: CGRect(x: view.layer.position.x, y: view.layer.position.y, width: view.frame.width, height: view.frame.height))
-        let layer = CAShapeLayer()
-        
-        layer.path = maskPath.cgPath
-        layer.strokeColor = UIColor.white.cgColor
-        layer.fillColor = UIColor.lightGray.cgColor
-        
-        
-        //view.layer.mask = layer
-        
+         
         // Add border
         let borderLayer = CAShapeLayer()
-        borderLayer.path = layer.path // Reuse the Bezier path
-        borderLayer.fillColor = UIColor.clear.cgColor
-        borderLayer.strokeColor = UIColor.green.cgColor
-        borderLayer.lineWidth = 5
-        borderLayer.frame = view.bounds
-        view.layer.addSublayer(borderLayer)
+        
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = view.frame
+        rectShape.position = view.center
+
+        switch view {
+        case self.productsView:
+            rectShape.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.bottomRight , .topLeft], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+            borderLayer.path = rectShape.path // Reuse the Bezier path
+            borderLayer.fillColor = UIColor.clear.cgColor
+            borderLayer.strokeColor = UIColor.white.cgColor
+            borderLayer.lineWidth = 3
+            borderLayer.frame = view.bounds
+            view.layer.addSublayer(borderLayer)
+            view.layer.mask = rectShape
+            break
+        case self.lastOrdersView:
+            rectShape.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.bottomLeft , .topRight], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+            borderLayer.path = rectShape.path // Reuse the Bezier path
+            borderLayer.fillColor = UIColor.clear.cgColor
+            borderLayer.strokeColor = UIColor.white.cgColor
+            borderLayer.lineWidth = 3
+            borderLayer.frame = view.bounds
+            view.layer.addSublayer(borderLayer)
+            view.layer.mask = rectShape
+            break
+        case self.aboutUsView:
+            rectShape.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.bottomLeft , .topRight], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+            borderLayer.path = rectShape.path // Reuse the Bezier path
+            borderLayer.fillColor = UIColor.clear.cgColor
+            borderLayer.strokeColor = UIColor.white.cgColor
+            borderLayer.lineWidth = 3
+            borderLayer.frame = view.bounds
+            view.layer.addSublayer(borderLayer)
+            view.layer.mask = rectShape
+            break
+        case self.contactUsView:
+            rectShape.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.bottomRight , .topLeft], cornerRadii: CGSize(width: 20, height: 20)).cgPath
+            borderLayer.path = rectShape.path // Reuse the Bezier path
+            borderLayer.fillColor = UIColor.clear.cgColor
+            borderLayer.strokeColor = UIColor.white.cgColor
+            borderLayer.lineWidth = 3
+            borderLayer.frame = view.bounds
+            view.layer.addSublayer(borderLayer)
+            view.layer.mask = rectShape
+            break
+            
+        default:
+            break
+        
+        }
+        
     }
 
 }

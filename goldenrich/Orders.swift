@@ -154,8 +154,9 @@ extension Orders : UITableViewDataSource, UITableViewDelegate
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell") as! OrderTableViewCell
         
+        let dateFormat: DateFormat  = DateFormat()
         
-        cell.dateLabel.text = "\(ordersData[indexPath.row].date)"
+        cell.dateLabel.text = dateFormat.getDateStr(dateMilli: ordersData[indexPath.row].date)
         cell.totalCostLabel.text = "\(ordersData[indexPath.row].totalCost) L.E"
         cell.tag = indexPath.row
         

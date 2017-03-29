@@ -20,13 +20,16 @@ class Register: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTxtField: UITextField!
     @IBOutlet weak var addressTxtField: UITextField!
     @IBOutlet weak var confirmBtn: UIButton!
-    
-    @IBOutlet weak var scrollViewBottomConstrain: NSLayoutConstraint!
+    //@IBOutlet weak var registerScrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
         
         nameTxtField.delegate = self
         emailTxtField.delegate = self
@@ -36,6 +39,23 @@ class Register: UIViewController, UITextFieldDelegate {
         
     }
 
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
     
     @IBAction func backBtnOnClick(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)

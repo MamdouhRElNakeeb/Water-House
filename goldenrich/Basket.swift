@@ -14,6 +14,11 @@ class Basket: UIViewController {
     @IBOutlet weak var basketTableView: UITableView!
     @IBOutlet weak var confirmBtn: UIButton!
     
+    
+    let ordersURL =  "http://apps.be4em.net/goldenrich/API/users/reloaddata"
+    
+    var progressBar: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     let animals = ["Panda", "Lion", "Elefant"]
     
     var basketData:Array< BasketItem > = Array < BasketItem >()
@@ -72,6 +77,70 @@ class Basket: UIViewController {
         }
         
     }
+    
+    func postOrder() {
+        
+        self.showProgressBar()
+        //creating parameters for the post request
+        let parameters: Parameters=[
+            "user_id": UserDefaults.standard.object(forKey: "userId")
+        ]
+        
+        //Sending http post request
+        Alamofire.request(ordersURL, method: .post, parameters: parameters)
+            //.validate(contentType: ["application/json"])
+            //.validate(contentType: ["application/x-www-form-urlencoded;charset=UTF-8"])
+            .responseJSON
+            {
+                response in
+                
+                self.hideProgressBar()
+                
+                print(response)
+                
+                //getting the json value from the server
+                if let result = response.result.value {
+                    
+                    //converting it as NSDictionary
+                    let jsonData = result as! NSDictionary
+                    let code = jsonData.value(forKey: "code") as! Int
+                    
+                    //jsonData.data(using: String.Encoding.utf8)
+                    
+                    if code == 500{
+                        
+                    }
+                    else if code == 200{
+                        
+                        
+                        let dataArray = jsonData.value(forKey: "data") as! NSDictionary
+                        let ordersDataArray = dataArray.value(forKey: "userOrders") as! NSArray
+                    
+                        
+                    }
+                    
+                    //displaying the message in label
+                    //print(jsonData.value(forKey: "message") as! String?)
+                }
+        }
+    }
+    
+    func showProgressBar(){
+        progressBar.center = self.view.center
+        progressBar.hidesWhenStopped = true
+        progressBar.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(progressBar)
+        
+        progressBar.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func hideProgressBar() {
+        progressBar.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
+
     
 
 }

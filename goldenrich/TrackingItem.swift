@@ -11,4 +11,13 @@ import UIKit
 class TrackingItem {
 
     //
+    
+    var dateMille: Int
+    var status: String
+    
+    init(dateMille: Int, status: String) {
+        self.dateMille = dateMille
+        self.status = status
+    }
+    
 }

@@ -35,8 +35,11 @@ class OrderDetails: UIViewController {
         // Do any additional setup after loading the view.
         orderProductsTableView.rowHeight = 80
         
+        let dateFormat: DateFormat  = DateFormat()
+        
+        dateLabel.text = dateFormat.getDateStr(dateMilli: orderItem.date)
+        
         orderIdLabel.text = "\(orderItem.orderNumber)"
-        dateLabel.text = "\(orderItem.date)"
         orderItemsLabel.text = "\(orderProductItemsData.count)"
         totalCostTabel.text = "\(orderItem.totalCost) EGP"
         
@@ -48,6 +51,14 @@ class OrderDetails: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func trackingBtnOnClick(_ sender: AnyObject) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let trackingVC = storyBoard.instantiateViewController(withIdentifier: "Tracking") as! Tracking
+        
+        trackingVC.orderItem = orderItem
+        
+        self.navigationController?.pushViewController(trackingVC, animated: true)
+    }
 }
 
 extension OrderDetails : UITableViewDataSource

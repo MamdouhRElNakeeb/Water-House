@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		232F25AC115419389B82C588 /* Pods_goldenrich.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CF372AC1EA4AF876CBE2CE /* Pods_goldenrich.framework */; };
 		3322BAA11E83B858003F190E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAA01E83B858003F190E /* AppDelegate.swift */; };
-		3322BAA31E83B859003F190E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BAA21E83B859003F190E /* ViewController.swift */; };
 		3322BAA61E83B859003F190E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3322BAA41E83B859003F190E /* Main.storyboard */; };
 		3322BAA81E83B859003F190E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3322BAA71E83B859003F190E /* Assets.xcassets */; };
 		3322BAAB1E83B859003F190E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3322BAA91E83B859003F190E /* LaunchScreen.storyboard */; };
@@ -36,12 +35,13 @@
 		337C06791E8B3757006A0509 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337C06781E8B3757006A0509 /* Splash.swift */; };
 		337C067B1E8B4C1D006A0509 /* OrderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337C067A1E8B4C1D006A0509 /* OrderDetails.swift */; };
 		337C067D1E8B58BE006A0509 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337C067C1E8B58BE006A0509 /* SideMenuTableViewController.swift */; };
+		33E407491E8BB34800DEDE42 /* Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E407481E8BB34800DEDE42 /* Tracking.swift */; };
+		33E4074C1E8BB56800DEDE42 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E4074B1E8BB56800DEDE42 /* DateFormat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3322BA9D1E83B858003F190E /* goldenrich.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = goldenrich.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3322BAA01E83B858003F190E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3322BAA21E83B859003F190E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3322BAA51E83B859003F190E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3322BAA71E83B859003F190E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3322BAAA1E83B859003F190E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,6 +71,8 @@
 		337C06781E8B3757006A0509 /* Splash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		337C067A1E8B4C1D006A0509 /* OrderDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetails.swift; sourceTree = "<group>"; };
 		337C067C1E8B58BE006A0509 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		33E407481E8BB34800DEDE42 /* Tracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracking.swift; sourceTree = "<group>"; };
+		33E4074B1E8BB56800DEDE42 /* DateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		43C0FA0EC583AA17751DC6B0 /* Pods-goldenrich.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goldenrich.release.xcconfig"; path = "Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich.release.xcconfig"; sourceTree = "<group>"; };
 		72CF372AC1EA4AF876CBE2CE /* Pods_goldenrich.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_goldenrich.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBBC087DE17A64D72A95E1D /* Pods-goldenrich.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-goldenrich.debug.xcconfig"; path = "Pods/Target Support Files/Pods-goldenrich/Pods-goldenrich.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,13 +120,14 @@
 		3322BA9F1E83B858003F190E /* goldenrich */ = {
 			isa = PBXGroup;
 			children = (
+				332804DD1E89CB8F00517C86 /* SideMenu */,
+				33E4074D1E8BCADD00DEDE42 /* TableViewCell */,
+				33E4074A1E8BB55A00DEDE42 /* Helper */,
 				332804D21E8963A100517C86 /* Object */,
 				3322BAB21E83E890003F190E /* Controller */,
 				3322BAA01E83B858003F190E /* AppDelegate.swift */,
-				3322BAA21E83B859003F190E /* ViewController.swift */,
 				3322BAA41E83B859003F190E /* Main.storyboard */,
 				3322BAA71E83B859003F190E /* Assets.xcassets */,
-				332804DD1E89CB8F00517C86 /* SideMenu */,
 				3322BAA91E83B859003F190E /* LaunchScreen.storyboard */,
 				3322BAAC1E83B859003F190E /* Info.plist */,
 			);
@@ -146,6 +149,7 @@
 				337C06781E8B3757006A0509 /* Splash.swift */,
 				337C067A1E8B4C1D006A0509 /* OrderDetails.swift */,
 				337C067C1E8B58BE006A0509 /* SideMenuTableViewController.swift */,
+				33E407481E8BB34800DEDE42 /* Tracking.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -153,15 +157,10 @@
 		332804D21E8963A100517C86 /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				332804D31E8963D900517C86 /* ProductTableViewCell.swift */,
 				332804D51E89841600517C86 /* ProductItem.swift */,
-				337C06631E8A12FA006A0509 /* BasketTableViewCell.swift */,
 				337C06651E8A1312006A0509 /* BasketItem.swift */,
-				337C066A1E8AFFEC006A0509 /* OrderTableViewCell.swift */,
 				337C066C1E8B0006006A0509 /* OrderItem.swift */,
-				337C066E1E8B004B006A0509 /* OrderProductTableViewCell.swift */,
 				337C06701E8B0059006A0509 /* OrderProductItem.swift */,
-				337C06721E8B00AB006A0509 /* TrackingTableViewCell.swift */,
 				337C06741E8B00B7006A0509 /* TrackingItem.swift */,
 			);
 			name = Object;
@@ -175,6 +174,26 @@
 				332804D91E89CB8600517C86 /* goldenrich-Bridging-Header.h */,
 			);
 			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		33E4074A1E8BB55A00DEDE42 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				33E4074B1E8BB56800DEDE42 /* DateFormat.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		33E4074D1E8BCADD00DEDE42 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				332804D31E8963D900517C86 /* ProductTableViewCell.swift */,
+				337C06631E8A12FA006A0509 /* BasketTableViewCell.swift */,
+				337C066A1E8AFFEC006A0509 /* OrderTableViewCell.swift */,
+				337C066E1E8B004B006A0509 /* OrderProductTableViewCell.swift */,
+				337C06721E8B00AB006A0509 /* TrackingTableViewCell.swift */,
+			);
+			name = TableViewCell;
 			sourceTree = "<group>";
 		};
 		B9300E8C274E200009E50E48 /* Frameworks */ = {
@@ -325,9 +344,9 @@
 				3322BAB81E83FC11003F190E /* Login.swift in Sources */,
 				332804D61E89841600517C86 /* ProductItem.swift in Sources */,
 				337C066F1E8B004B006A0509 /* OrderProductTableViewCell.swift in Sources */,
-				3322BAA31E83B859003F190E /* ViewController.swift in Sources */,
 				332804D11E8961C400517C86 /* Products.swift in Sources */,
 				3322BAB61E83E963003F190E /* Register.swift in Sources */,
+				33E407491E8BB34800DEDE42 /* Tracking.swift in Sources */,
 				337C06751E8B00B7006A0509 /* TrackingItem.swift in Sources */,
 				337C066D1E8B0006006A0509 /* OrderItem.swift in Sources */,
 				337C06691E8A1375006A0509 /* Basket.swift in Sources */,
@@ -335,6 +354,7 @@
 				3322BABA1E840359003F190E /* Home.swift in Sources */,
 				337C06641E8A12FA006A0509 /* BasketTableViewCell.swift in Sources */,
 				3322BAA11E83B858003F190E /* AppDelegate.swift in Sources */,
+				33E4074C1E8BB56800DEDE42 /* DateFormat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
