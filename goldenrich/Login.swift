@@ -37,6 +37,15 @@ class Login: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginBtnOnClick(_ sender: AnyObject) {
         
+        let utils: Utils = Utils()
+        
+        if !utils.isConnectedToNetwork(){
+            let alert = UIAlertController(title: "Alert", message: "Problem with internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         if (emailTxtField.text?.isEmpty)! {
             let alert = UIAlertController(title: "Alert", message: "Email is missing", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default, handler: nil))
@@ -50,23 +59,14 @@ class Login: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
+        
         showProgressBar()
         //creating parameters for the post request
         let parameters: Parameters=[
             "email":emailTxtField.text!,
             "password":passwordTxtField.text!
         ]
-        
-        /*
-        var manager = SessionManager.sharedInstance
-        
-        // Specifying the Headers we need
-        manager.session.configuration.HTTPAdditionalHeaders = [
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-            "Content-Type": "application/json",
-            "Accept": "application/json" //Optional
-        ]
-        */
+    
         
         //Sending http post request
         Alamofire.request(URL_USER_REGISTER, method: .post, parameters: parameters)
@@ -78,15 +78,6 @@ class Login: UIViewController, UITextFieldDelegate {
                 
                 self.hideProgressBar()
                 
-                //let response = response as! String
-                //let res = NSString(data: response.data!, encoding: String.Encoding.utf8.rawValue)
-                
-                //printing response
-                /*
-                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                    //print("Data: \(utf8Text)")
-                }
-                */
                 
                 print(response)
                 
@@ -96,8 +87,6 @@ class Login: UIViewController, UITextFieldDelegate {
                     //converting it as NSDictionary
                     let jsonData = result as! NSDictionary
                     let code = jsonData.value(forKey: "code") as! Int
-                    
-                    //jsonData.data(using: String.Encoding.utf8)
                     
                     if code == 500{
                         let errMsg = jsonData["mesasage"] as! String
@@ -131,8 +120,7 @@ class Login: UIViewController, UITextFieldDelegate {
                         
                     }
                     
-                    //displaying the message in label
-                    //print(jsonData.value(forKey: "message") as! String?)
+                    
                 }
         }
     }

@@ -15,7 +15,7 @@ class Basket: UIViewController {
     @IBOutlet weak var confirmBtn: UIButton!
     
     
-    let ordersURL =  "http://apps.be4em.net/goldenrich/API/users/reloaddata"
+    let ordersURL =  "http://apps.be4em.net/goldenrich/API/orders/create"
     
     var progressBar: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -36,21 +36,24 @@ class Basket: UIViewController {
         _ = navigationController?.popViewController(animated: true)
         delegate.didFinishSecondVC(basketVC: self)
         
-        /*
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let productsVC = storyBoard.instantiateViewController(withIdentifier: "Products") as! Products
-        
-        productsVC.basketData = self.basketData
-        self.navigationController?.pushViewController(productsVC, animated: true)
-        */
     }
     
     @IBAction func confirmBtnOnClick(_ sender: AnyObject) {
+        
+        let utils: Utils = Utils()
+        
+        if !utils.isConnectedToNetwork(){
+            let alert = UIAlertController(title: "Alert", message: "Problem with internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         
         let basketDataJSONArray:NSMutableArray = NSMutableArray()
         
         do {
             
+            self.showProgressBar()
            
             for basketItem in basketData{
                 
@@ -59,37 +62,47 @@ class Basket: UIViewController {
                 basketDataJSONArray.add(basketItemJSON)
             }
             
-            //Convert to Data
-            let jsonData = try JSONSerialization.data(withJSONObject: basketDataJSONArray, options: JSONSerialization.WritingOptions.prettyPrinted)
+            var totalPrice: Int = 0
             
-            //Do this for print data only otherwise skip
-            if let JSONString = String(data: jsonData, encoding: String.Encoding.utf8) {
-                print(JSONString)
+            for basketItemPrice: BasketItem in basketData{
+                
+                totalPrice += basketItemPrice.price
             }
             
-            //In production, you usually want to try and cast as the root data structure. Here we are casting as a dictionary. If the root object is an array cast as [AnyObject].
-            //let json = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: AnyObject]
-            //print(json)
+            let basketItemJSON: NSMutableDictionary = NSMutableDictionary()
+            
+            print(String(format: "%.0f", (NSDate().timeIntervalSince1970 * 1000)))
+            
+            
+            basketItemJSON.setValue(String(format: "%.0f", (NSDate().timeIntervalSince1970 * 1000)), forKey: "orderNumber")
+            basketItemJSON.setValue(UserDefaults.standard.object(forKey: "userId"), forKey: "userId")
+            basketItemJSON.setValue("\(totalPrice)", forKey: "totalcost")
+            basketItemJSON.setValue(basketDataJSONArray, forKey: "orderItems")
+            
+            
+            print(basketItemJSON)
+            
+            var request = URLRequest(url: URL(string: ordersURL)!)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            request.httpBody = try! JSONSerialization.data(withJSONObject: basketItemJSON)
+        
+            postOrder(request: request)
             
             
         } catch {
             print(error)
+            self.hideProgressBar()
         }
-        
+ 
     }
     
-    func postOrder() {
+    func postOrder(request: URLRequest) {
         
-        self.showProgressBar()
-        //creating parameters for the post request
-        let parameters: Parameters=[
-            "user_id": UserDefaults.standard.object(forKey: "userId")
-        ]
-        
+
         //Sending http post request
-        Alamofire.request(ordersURL, method: .post, parameters: parameters)
-            //.validate(contentType: ["application/json"])
-            //.validate(contentType: ["application/x-www-form-urlencoded;charset=UTF-8"])
+        Alamofire.request(request)
             .responseJSON
             {
                 response in
@@ -105,22 +118,17 @@ class Basket: UIViewController {
                     let jsonData = result as! NSDictionary
                     let code = jsonData.value(forKey: "code") as! Int
                     
-                    //jsonData.data(using: String.Encoding.utf8)
                     
                     if code == 500{
                         
                     }
                     else if code == 200{
-                        
-                        
-                        let dataArray = jsonData.value(forKey: "data") as! NSDictionary
-                        let ordersDataArray = dataArray.value(forKey: "userOrders") as! NSArray
-                    
-                        
+                        let alert = UIAlertController(title: "Success", message: "Order Sent Successfully", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        return
                     }
                     
-                    //displaying the message in label
-                    //print(jsonData.value(forKey: "message") as! String?)
                 }
         }
     }
@@ -161,8 +169,8 @@ extension Basket : UITableViewDataSource, BasketCellDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "basketCell") as! BasketTableViewCell
         
         cell.nameLabel.text = basketData[indexPath.row].productName
-        cell.quantityLabel.text = "\(basketData[indexPath.row].quantity)"
-        cell.priceLabel.text = "\(basketData[indexPath.row].price)"
+        cell.quantityLabel.text = "\(basketData[indexPath.row].quantity) unit"
+        cell.priceLabel.text = "\(basketData[indexPath.row].price) L.E"
         cell.basketCellDelegate = self
         cell.tag = indexPath.row
         //cell.backgroundColor = UIColor.lightGray

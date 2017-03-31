@@ -20,7 +20,9 @@ class Register: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var phoneTxtField: UITextField!
     @IBOutlet weak var addressTxtField: UITextField!
     @IBOutlet weak var confirmBtn: UIButton!
-    //@IBOutlet weak var registerScrollView: UIScrollView!
+    
+    
+    var flag: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,6 @@ class Register: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-        
         nameTxtField.delegate = self
         emailTxtField.delegate = self
         passwordTxtField.delegate = self
@@ -40,9 +41,8 @@ class Register: UIViewController, UITextFieldDelegate {
     }
 
     func keyboardWillShow(notification: NSNotification) {
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
+            if self.view.frame.origin.y == 0 && flag == 1{
                 self.view.frame.origin.y -= keyboardSize.height
             }
         }
@@ -51,10 +51,58 @@ class Register: UIViewController, UITextFieldDelegate {
     
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
+            if self.view.frame.origin.y != 0 && flag == 1{
                 self.view.frame.origin.y += keyboardSize.height
             }
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if (textField == self.nameTxtField) {
+            
+            if self.view.frame.origin.y != 0{
+                
+                flag = 1
+            }
+            else{
+                flag = 0
+            }
+        }
+        else if (textField == self.emailTxtField) {
+            
+            if self.view.frame.origin.y != 0{
+                
+                flag = 1
+            }
+            else{
+                flag = 0
+            }
+            
+        } else if (textField == self.passwordTxtField) {
+            
+            if self.view.frame.origin.y != 0{
+                
+                flag = 1
+            }
+            else{
+                flag = 0
+            }
+        }
+        else if (textField == self.addressTxtField){
+            flag = 1
+        }
+        else if (textField == self.phoneTxtField){
+            if self.view.frame.origin.y != 0{
+                
+                flag = 1
+            }
+            else{
+                flag = 0
+            }
+        }
+        
+        return true
     }
     
     @IBAction func backBtnOnClick(_ sender: AnyObject) {
@@ -62,6 +110,15 @@ class Register: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func confirmBtnOnClick(_ sender: AnyObject) {
+        
+        let utils: Utils = Utils()
+        
+        if !utils.isConnectedToNetwork(){
+            let alert = UIAlertController(title: "Alert", message: "Problem with internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         
         if (nameTxtField.text?.isEmpty)! {
             let alert = UIAlertController(title: "Alert", message: "Name is missing", preferredStyle: UIAlertControllerStyle.alert)
@@ -121,16 +178,8 @@ class Register: UIViewController, UITextFieldDelegate {
                     let code = jsonData.value(forKey: "code") as! Int
                     
                     if code == 500{
-                        /*
-                        do{
-                            let errMsg = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary //
-                            
-                        }
-                        catch{
-                        }
- */
-                        let errMsg = jsonData["mesasage"] as! [[String:String]]
-                        let alert = UIAlertController(title: "Error", message: errMsg[0][""], preferredStyle: UIAlertControllerStyle.alert)
+                                                let errMsg = jsonData["mesasage"] as! String
+                        let alert = UIAlertController(title: "Error", message: errMsg, preferredStyle: UIAlertControllerStyle.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                         return

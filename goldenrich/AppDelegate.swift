@@ -19,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyBwncPjxJZcduU0kZBEdWLwkZIQjTgPBHs")
         
+        UITabBar.appearance().barTintColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1)
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .selected)
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        
         return true
     }
 

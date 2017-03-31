@@ -13,8 +13,6 @@ class DateFormat {
     var formatterTime: DateFormatter
     var formatterDate: DateFormatter
     
-    var monthes = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    
     init() {
         formatterTime = DateFormatter()
         formatterTime.timeZone = NSTimeZone(name: "UTC+2") as TimeZone!

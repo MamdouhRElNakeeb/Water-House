@@ -69,10 +69,7 @@ class ResetPassword: UIViewController, UITextFieldDelegate {
                     
                         //displaying the message in label
                         
-                            
-                        //let errMsgArray : NSArray = (jsonData.value(forKey: "mesasage") as? NSArray)!
-                        
-                        let alert = UIAlertController(title: "Forget Password", message: jsonData.value(forKey: "mesasage") /*errMsgArray.firstObject*/ as! String?, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = UIAlertController(title: "Forget Password", message: jsonData.value(forKey: "mesasage") as! String?, preferredStyle: UIAlertControllerStyle.alert)
                         alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default))
                         self.present(alert, animated: true, completion: nil)
                         return

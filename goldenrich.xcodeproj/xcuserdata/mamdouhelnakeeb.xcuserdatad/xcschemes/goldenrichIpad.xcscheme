@@ -17,7 +17,7 @@
                BlueprintIdentifier = "3322BA9C1E83B858003F190E"
                BuildableName = "goldenrich.app"
                BlueprintName = "goldenrich"
-               ReferencedContainer = "container:Wa.xcodeproj">
+               ReferencedContainer = "container:goldenrich.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "3322BA9C1E83B858003F190E"
             BuildableName = "goldenrich.app"
             BlueprintName = "goldenrich"
-            ReferencedContainer = "container:Wa.xcodeproj">
+            ReferencedContainer = "container:goldenrich.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "3322BA9C1E83B858003F190E"
             BuildableName = "goldenrich.app"
             BlueprintName = "goldenrich"
-            ReferencedContainer = "container:Wa.xcodeproj">
+            ReferencedContainer = "container:goldenrich.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

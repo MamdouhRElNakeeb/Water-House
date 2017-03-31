@@ -43,6 +43,15 @@ class Orders: UIViewController {
     
     func loadOrders() {
         
+        let utils: Utils = Utils()
+        
+        if !utils.isConnectedToNetwork(){
+            let alert = UIAlertController(title: "Alert", message: "Problem with internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         self.showProgressBar()
         //creating parameters for the post request
         let parameters: Parameters=[
@@ -51,8 +60,6 @@ class Orders: UIViewController {
         
         //Sending http post request
         Alamofire.request(ordersURL, method: .post, parameters: parameters)
-            //.validate(contentType: ["application/json"])
-            //.validate(contentType: ["application/x-www-form-urlencoded;charset=UTF-8"])
             .responseJSON
             {
                 response in
@@ -68,7 +75,6 @@ class Orders: UIViewController {
                     let jsonData = result as! NSDictionary
                     let code = jsonData.value(forKey: "code") as! Int
                     
-                    //jsonData.data(using: String.Encoding.utf8)
                     
                     if code == 500{
                         
@@ -84,7 +90,6 @@ class Orders: UIViewController {
                             
                             var orderItemProducts: Array<BasketItem> = Array<BasketItem>()
                             
-                            //let orderItemsArray = (orderItem as AnyObject).value(forKey: "orderItem") as! NSDictionary
                             let orderItemsDataArray = (orderItem as AnyObject).value(forKey: "orderItem") as! NSArray
                             
                             for orderItemProduct in orderItemsDataArray {
@@ -116,8 +121,7 @@ class Orders: UIViewController {
                         
                     }
                     
-                    //displaying the message in label
-                    //print(jsonData.value(forKey: "message") as! String?)
+                    
                 }
         }
     }

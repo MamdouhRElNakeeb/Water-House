@@ -18,8 +18,6 @@ class SideMenuTableViewController: UITableViewController {
 
         usernameLabel.text = UserDefaults.standard.object(forKey: "username") as! String?
         
-        //logoutBtn.target(forAction: #selector(logout), withSender: self)
-        
         let logoutBtnTap = UITapGestureRecognizer(target: self, action: #selector(logout))
         logoutBtnTap.delegate = self.logoutBtn
         logoutBtn.addGestureRecognizer(logoutBtnTap)

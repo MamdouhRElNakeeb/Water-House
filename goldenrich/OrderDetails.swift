@@ -20,14 +20,6 @@ class OrderDetails: UIViewController {
     
     var orderItem: OrderItem = OrderItem()
     
-    /*
-    init(orderItem: OrderItem, orderProductItemsData: Array <BasketItem>) {
-        
-
-        self.orderItem = orderItem
-        self.orderProductItemsData = orderProductItemsData
-    }
-    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +31,7 @@ class OrderDetails: UIViewController {
         
         dateLabel.text = dateFormat.getDateStr(dateMilli: orderItem.date)
         
-        orderIdLabel.text = "\(orderItem.orderNumber)"
+        orderIdLabel.text = "Order ID: \(orderItem.orderNumber)"
         orderItemsLabel.text = "\(orderProductItemsData.count)"
         totalCostTabel.text = "\(orderItem.totalCost) EGP"
         

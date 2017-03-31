@@ -9,6 +9,8 @@
 import UIKit
 
 class Home: UIViewController, UIGestureRecognizerDelegate {
+    
+    @IBOutlet weak var gridMenuView: UIView!
 
     @IBOutlet weak var productsView: UIView!
     @IBOutlet weak var lastOrdersView: UIView!
@@ -20,6 +22,15 @@ class Home: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let viewHeight: CGFloat = 413
+        let viewWidth: CGFloat = 238
+        let screenWidth = self.view.frame.size.width
+        let screenHeight = self.view.frame.size.height
+        
+        let frame = CGRect(x: (screenWidth / 2) - (viewWidth / 2), y: (screenHeight / 2) - (viewHeight / 2), width: viewWidth, height: viewHeight)
+        
+        gridMenuView.frame = frame
         
         if revealViewController() != nil{
             sideMenuBtn.target = revealViewController()

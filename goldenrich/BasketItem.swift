@@ -27,25 +27,9 @@ class BasketItem{
     func toJson() -> NSMutableDictionary {
         
         let basketItemJSON: NSMutableDictionary = NSMutableDictionary()
-        let basketProductItemJSON: NSMutableDictionary = NSMutableDictionary()
-        
-        basketProductItemJSON.setValue(self.productId, forKey: "productId")
-        basketProductItemJSON.setValue(self.price, forKey: "price")
-        basketProductItemJSON.setValue(self.productName, forKey: "name")
-        
-        
-        basketItemJSON.setValue(basketProductItemJSON, forKey: "product")
+        basketItemJSON.setValue(self.productId, forKey: "productId")
         basketItemJSON.setValue(self.quantity, forKey: "quantity")
-        /*
-        var dict : [String: AnyObject] = [:]
-        dict["id"] = (self.id) as AnyObject?
-        dict["price"] = (self.price ) as AnyObject
-        dict["productName"] = (self.productName) as AnyObject
         
-        var dict2 : [String: AnyObject] = [:]
-        dict2["product"] = dict as AnyObject
-        dict2["quantity"] = (self.quantity) as AnyObject
-        */
         return basketItemJSON
     }
     

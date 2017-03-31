@@ -13,8 +13,9 @@ class Products: UIViewController, BasketVCDelegate {
 
     @IBOutlet weak var productsTableView: UITableView!
     @IBOutlet weak var sideMenuBtn: UIBarButtonItem!
-    @IBOutlet weak var ordersNoLabel: UILabel!
-    @IBOutlet weak var makeOrderBtn: UIButton!
+    @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var makeOrderTabBtn: UITabBarItem!
+    @IBOutlet weak var contactUsTabBtn: UITabBarItem!
     
     let animals = ["Panda", "Lion", "Elefant"]
     
@@ -26,22 +27,27 @@ class Products: UIViewController, BasketVCDelegate {
     
     let productsURL =  "http://apps.be4em.net/goldenrich/API/users/reloaddata"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        makeOrderTabBtn.image = makeOrderTabBtn.image?.withRenderingMode(.alwaysOriginal)
+        makeOrderTabBtn.selectedImage = makeOrderTabBtn.image
+        
+        contactUsTabBtn.image = contactUsTabBtn.image?.withRenderingMode(.alwaysOriginal)
+        contactUsTabBtn.selectedImage = contactUsTabBtn.image
+    
         if basketData.count == 0{
-            ordersNoLabel.isHidden = true
+            
+            makeOrderTabBtn.badgeValue = nil
         }
         else{
-            ordersNoLabel.text = "\(basketData.count)"
-            ordersNoLabel.isHidden = false
+            
+            makeOrderTabBtn.badgeValue = "\(basketData.count)"
         }
         
-        
-        ordersNoLabel.layer.cornerRadius = 8
-        ordersNoLabel.clipsToBounds = true
         
         if revealViewController() != nil{
             sideMenuBtn.target = revealViewController()
@@ -50,14 +56,21 @@ class Products: UIViewController, BasketVCDelegate {
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        makeOrderBtn.addTarget(self, action: #selector(openBasket), for: .touchUpInside)
-        
-        
+    
         loadProducts()
         
     }
     
     func loadProducts() {
+        
+        let utils: Utils = Utils()
+        
+        if !utils.isConnectedToNetwork(){
+            let alert = UIAlertController(title: "Alert", message: "Problem with internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         
         self.showProgressBar()
         //creating parameters for the post request
@@ -67,8 +80,6 @@ class Products: UIViewController, BasketVCDelegate {
         
         //Sending http post request
         Alamofire.request(productsURL, method: .post, parameters: parameters)
-            //.validate(contentType: ["application/json"])
-            //.validate(contentType: ["application/x-www-form-urlencoded;charset=UTF-8"])
             .responseJSON
             {
                 response in
@@ -84,7 +95,6 @@ class Products: UIViewController, BasketVCDelegate {
                     let jsonData = result as! NSDictionary
                     let code = jsonData.value(forKey: "code") as! Int
                     
-                    //jsonData.data(using: String.Encoding.utf8)
                     
                     if code == 500{
                         
@@ -92,7 +102,6 @@ class Products: UIViewController, BasketVCDelegate {
                     else if code == 200{
                         
                         self.productData.removeAll()
-                        //self.showProgressBar()
                         
                         let dataArray = jsonData.value(forKey: "data") as! NSDictionary
                         let productsDataArray = dataArray.value(forKey: "products") as! NSArray
@@ -125,9 +134,6 @@ class Products: UIViewController, BasketVCDelegate {
                         self.productsTableView.reloadData()
                         
                     }
-                    
-                    //displaying the message in label
-                    //print(jsonData.value(forKey: "message") as! String?)
                 }
         }
     }
@@ -135,27 +141,6 @@ class Products: UIViewController, BasketVCDelegate {
     @IBAction func reloadBtnOnClick(_ sender: AnyObject) {
         loadProducts()
     }
-    
-    /*
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        return productData.count
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProductTableViewCell
-        
-        cell.productImage.sd_setImage(with: URL(string: productData[indexPath.row].photoUrl))
-        
-        //cell.productImage.image = UIImage(named: (animals[indexPath.row] + ".jpg"))
-        cell.productNameLabel.text = productData[indexPath.row].productName
-        cell.productPriceLabel.text = "\(productData[indexPath.row].price)"
-
-        return (cell)
-    }
-    
-    */
 
     func showProgressBar(){
         progressBar.center = self.view.center
@@ -193,21 +178,27 @@ class Products: UIViewController, BasketVCDelegate {
         
     }
     
+    func openContacts()  {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let basketVC = storyBoard.instantiateViewController(withIdentifier: "Contacts") as! ContactUs
+
+        self.navigationController?.pushViewController(basketVC, animated: true)
+    }
+    
     func didFinishSecondVC(basketVC: Basket) {
         self.basketData = basketVC.basketData
         refreshTable()
-        //_ = basketVC.navigationController?.popViewController(animated: true)
     }
     
     func refreshTable() {
         productsTableView.reloadData()
         
         if basketData.count == 0{
-            ordersNoLabel.isHidden = true
+            
+            makeOrderTabBtn.badgeValue = nil
         }
         else{
-            ordersNoLabel.text = "\(basketData.count)"
-            ordersNoLabel.isHidden = false
+            makeOrderTabBtn.badgeValue = "\(basketData.count)"
         }
 
     }
@@ -216,7 +207,7 @@ class Products: UIViewController, BasketVCDelegate {
 }
 
 
-extension Products : UITableViewDataSource, ProductCellDelegate
+extension Products : UITableViewDataSource, ProductCellDelegate, UITabBarDelegate
 {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -232,7 +223,6 @@ extension Products : UITableViewDataSource, ProductCellDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell") as! ProductTableViewCell
         
         
-        //let photoUrl = URL(string: productData[indexPath.row].photoUrl)
         let urlStr : String = productData[indexPath.row].photoUrl
         let data = urlStr.data(using: .utf8)
         let urlStrUTF8 = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
@@ -245,7 +235,7 @@ extension Products : UITableViewDataSource, ProductCellDelegate
         
         
         cell.productNameLabel.text = productData[indexPath.row].productName
-        cell.productPriceLabel.text = "\(productData[indexPath.row].price)"
+        cell.productPriceLabel.text = "\(productData[indexPath.row].price) L.E"
         cell.productCellDelegate = self
         cell.tag = indexPath.row
         
@@ -257,9 +247,29 @@ extension Products : UITableViewDataSource, ProductCellDelegate
         
         basketData.append(BasketItem.init(productId: productData[tag].id, basketItemId: 0, productName: productData[tag].productName, quantity: count, price: count * productData[tag].price))
         
-        ordersNoLabel.isHidden = false
-        ordersNoLabel.text = "\(Int(ordersNoLabel.text!)! + 1)"
+        switch makeOrderTabBtn.badgeValue {
+        case nil:
+            makeOrderTabBtn.badgeValue = "1"
+            break
+        default:
+            makeOrderTabBtn.badgeValue = "\(Int(makeOrderTabBtn.badgeValue!)! + 1)"
+            break
+        }
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        //This method will be called when user changes tab.
         
+        switch item {
+        case makeOrderTabBtn:
+            openBasket()
+            break
+        case contactUsTabBtn:
+            openContacts()
+            break
+        default:
+            return
+        }
     }
 }
 

@@ -10,12 +10,22 @@ import UIKit
 
 class Splash: UIViewController {
 
+    @IBOutlet weak var splashProgreesView: UIProgressView!
+    
+    var count : Int = 3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        perform(#selector(showVC), with: nil, afterDelay: 2)
+        
+        
+        splashProgreesView.setProgress(0, animated: true)
+        splashProgreesView.progress = 0
+        
+        _ = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+
     }
     
     func showVC()  {
@@ -27,7 +37,7 @@ class Splash: UIViewController {
         }
         else{
             
-            //performSegue(withIdentifier: "Main", sender: self)
+            
             
             let loginVC =  self.storyboard?.instantiateViewController(withIdentifier: "Login") as! Login
             self.present(loginVC, animated: true, completion: nil)
@@ -35,6 +45,16 @@ class Splash: UIViewController {
             
         }
         
+    }
+    
+    func update() {
+        if(count > 0) {
+            splashProgreesView.setProgress(Float(count), animated: true)
+            count -= 1
+        }
+        else{
+            showVC()
+        }
     }
 
 }

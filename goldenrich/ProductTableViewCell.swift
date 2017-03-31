@@ -22,7 +22,7 @@ class ProductTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        //self.layoutMargins = UIEdgeInsetsMake(0, 0, 20, 0)
+        
         
         productAddBtn.layer.cornerRadius = 10
         productAddBtn.clipsToBounds = true
@@ -43,14 +43,12 @@ class ProductTableViewCell: UITableViewCell {
         print("price:" + productPriceLabel.text!)
     }
     @IBAction func productQPlusBtnOnClick(_ sender: AnyObject) {
-        //productCellDelegate?.didPressButton(sender.tag)
         
         if Int(productQTxtField.text!)! < 100{
             productQTxtField.text = "\(Int(productQTxtField.text!)! + 1)"
         }
     }
     @IBAction func productQMinusBtnOnClick(_ sender: AnyObject) {
-        //productCellDelegate?.didPressButton(sender.tag)
         if Int(productQTxtField.text!)! > 1{
             productQTxtField.text = "\(Int(productQTxtField.text!)! - 1)"
         }
