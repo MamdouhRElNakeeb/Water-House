@@ -10,3 +10,6 @@ My Responsabilites:
 
 Android Version:
 https://play.google.com/store/apps/details?id=com.be4em.goldenrich
+
+iOS Version:
+https://itunes.apple.com/us/app/water-house/id1221726897
